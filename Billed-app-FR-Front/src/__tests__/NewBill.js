@@ -153,6 +153,33 @@ describe('Given I am connected as an employee', () => {
       expect(handleSubmit).toHaveBeenCalled();
     });
   });
+});
+
+describe('Given : I am a user connected as Employee and i submit the form to post a new bill', () => {
+  test('then : it should post the new bill and refresh bills page', async () => {
+    const spyPost = jest.spyOn(mockStore, 'bills');
+    const testBill = {
+      id: '47qAXb6fIm2zOKkLzMro',
+      vat: '80',
+      fileUrl:
+        'https://firebasestorage.googleapis.com/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a',
+      status: 'pending',
+      type: 'Hôtel et logement',
+      commentary: 'séminaire billed',
+      name: 'encore',
+      fileName: 'preview-facture-free-201801-pdf-1.jpg',
+      date: '2004-04-04',
+      amount: 400,
+      commentAdmin: 'ok',
+      email: 'a@a',
+      pct: 20,
+    };
+
+    const updatedBills = await mockStore.bills().update(testBill);
+    expect(spyPost).toHaveBeenCalled();
+    expect(updatedBills).toStrictEqual(testBill);
+  });
+
   describe('when an error occurs on API', () => {
     beforeEach(() => {
       jest.spyOn(mockStore, 'bills');
@@ -169,7 +196,7 @@ describe('Given I am connected as an employee', () => {
       document.body.appendChild(root);
       router();
     });
-    test('Then: bills from an API and fails with 404 message error', async () => {
+    test('Then bills from an API and fails with 404 message error', async () => {
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list: () => {
@@ -182,7 +209,7 @@ describe('Given I am connected as an employee', () => {
       expect(message).toBeTruthy();
     });
 
-    test('Then: bills from an API and fails with 500 message error', async () => {
+    test('Then bills from an API and fails with 500 message error', async () => {
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list: () => {

@@ -47,7 +47,7 @@ describe('Given I am connected as an employee', () => {
 });
 
 describe('when i click to add a new bill', () => {
-  test('Then : a modal shoul open', () => {
+  test('Then a modal should open', () => {
     Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     window.localStorage.setItem('user', JSON.stringify({ type: 'Employee' }));
 
@@ -71,7 +71,7 @@ describe('when i click to add a new bill', () => {
 });
 
 describe('when i click on the icon button to see one bill', () => {
-  test('Then : a modal should open', () => {
+  test('Then a modal should open', () => {
     document.body.innerHTML = BillsUI({ data: bills });
 
     const onNavigate = (pathname) => {
@@ -99,9 +99,9 @@ describe('when i click on the icon button to see one bill', () => {
 });
 
 // test d'intégration GET
-describe('Given : I am a user connected as Employee', () => {
+describe('Given I am a user connected as Employee', () => {
   describe('When I navigate to Bills home page', () => {
-    test('Then : fetches bills from mock API GET', async () => {
+    test('Then fetches bills from mock API GET', async () => {
       localStorage.setItem('user', JSON.stringify({ type: 'Employee', email: 'a@a' }));
 
       const root = document.createElement('div');
@@ -133,7 +133,7 @@ describe('Given : I am a user connected as Employee', () => {
         document.body.appendChild(root);
         router();
       });
-      test('Then, fetches bills from an API and fails with 404 message error', async () => {
+      test('Then fetches bills from an API and fails with 404 message error', async () => {
         mockStore.bills.mockImplementationOnce(() => {
           return {
             list: () => {
@@ -147,7 +147,7 @@ describe('Given : I am a user connected as Employee', () => {
         expect(message).toBeTruthy();
       });
 
-      test('Then, fetches messages from an API and fails with 500 message error', async () => {
+      test('Then fetches messages from an API and fails with 500 message error', async () => {
         mockStore.bills.mockImplementationOnce(() => {
           return {
             list: () => {
